@@ -25,9 +25,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-OWN_EMAIL = os.environ.get['OWN_EMAIL']
-OWN_PASSWORD = os.environ.get['OWN_PASSWORD']
-APP_PASSWORD = os.environ.get['APP_PASSWORD']
+OWN_EMAIL = os.environ.get('OWN_EMAIL')
+OWN_PASSWORD = os.environ.get('OWN_PASSWORD')
+APP_PASSWORD = os.environ.get('APP_PASSWORD')
 
 # set up gmail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
