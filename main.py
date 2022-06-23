@@ -14,18 +14,20 @@ from flask_mail import Mail, Message
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# use "DATABASE_URL" environment variable if provided,
+# but if it's None (e.g. when running locally) then we can provide sqlite:///blog.db as the alternative.
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-OWN_EMAIL = os.environ['OWN_EMAIL']
-OWN_PASSWORD = os.environ['OWN_PASSWORD']
-APP_PASSWORD = os.environ['APP_PASSWORD']
+OWN_EMAIL = os.environ.get['OWN_EMAIL']
+OWN_PASSWORD = os.environ.get['OWN_PASSWORD']
+APP_PASSWORD = os.environ.get['APP_PASSWORD']
 
 # set up gmail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
