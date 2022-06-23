@@ -28,6 +28,7 @@ db = SQLAlchemy(app)
 OWN_EMAIL = os.environ.get('OWN_EMAIL')
 OWN_PASSWORD = os.environ.get('OWN_PASSWORD')
 APP_PASSWORD = os.environ.get('APP_PASSWORD')
+YEAR = date.today().strftime("%Y")
 
 # set up gmail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -121,7 +122,7 @@ db.create_all()
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-    return render_template("index.html", all_posts=posts, current_user=current_user)
+    return render_template("index.html", all_posts=posts, current_user=current_user, year=YEAR)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -152,7 +153,7 @@ def register():
 
         login_user(new_user)
         return redirect(url_for("get_all_posts"))
-    return render_template("register.html", form=form, current_user=current_user)
+    return render_template("register.html", form=form, current_user=current_user, year=YEAR)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -176,7 +177,7 @@ def login():
             login_user(user)
             return redirect(url_for('get_all_posts'))
 
-    return render_template("login.html", form=form, current_user=current_user)
+    return render_template("login.html", form=form, current_user=current_user, year=YEAR)
 
 
 @app.route('/logout')
@@ -203,12 +204,12 @@ def show_post(post_id):
         db.session.add(new_comment)
         db.session.commit()
 
-    return render_template("post.html", post=requested_post, current_user=current_user, form=form)
+    return render_template("post.html", post=requested_post, current_user=current_user, form=form, year=YEAR)
 
 
 @app.route("/about")
 def about():
-    return render_template("about.html", current_user=current_user)
+    return render_template("about.html", current_user=current_user, year=YEAR)
 
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -221,8 +222,8 @@ def contact():
     #     data = request.form
     #     print(data["name"], data["email"], data["phone"], data["message"])
     #     send_email(data["name"], data["email"], data["phone"], data["message"])
-        return render_template("contact.html", form=form, msg_sent=True, current_user=current_user)
-    return render_template("contact.html", form=form, msg_sent=False, current_user=current_user)
+        return render_template("contact.html", form=form, msg_sent=True, current_user=current_user, year=YEAR)
+    return render_template("contact.html", form=form, msg_sent=False, current_user=current_user, year=YEAR)
 
 
 @app.route("/new-post", methods=["GET", "POST"])
@@ -241,7 +242,7 @@ def add_new_post():
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for("get_all_posts"))
-    return render_template("make-post.html", form=form, current_user=current_user)
+    return render_template("make-post.html", form=form, current_user=current_user, year=YEAR)
 
 
 @app.route("/edit-post/<int:post_id>")
@@ -264,7 +265,7 @@ def edit_post(post_id, methods=["GET", "POST"]):
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
 
-    return render_template("make-post.html", form=edit_form, current_user=current_user)
+    return render_template("make-post.html", form=edit_form, current_user=current_user, year=YEAR)
 
 
 @app.route("/delete/<int:post_id>")
