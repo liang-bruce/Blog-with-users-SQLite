@@ -1,5 +1,5 @@
 # Blog with users
-## Deployed on heroku https://jitian-blog.herokuapp.com/
+## Deployed on Render https://codingjourneyofbruce.onrender.com/post/1
 Build by Bootstrap, Flask, SQLite <br>
 Database tables: users, blog_posts & comments <br>
 Used Clean Blog Template from Start Bootstrap's website <br>
