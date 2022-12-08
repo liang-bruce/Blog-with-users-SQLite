@@ -1,5 +1,5 @@
 # Blog with users
-## Deployed on Render https://codingjourneyofbruce.onrender.com/post/1
+## Deployed on Render https://codingjourneyofbruce.onrender.com/
 Build by Bootstrap, Flask, SQLite <br>
 Database tables: users, blog_posts & comments <br>
 Used Clean Blog Template from Start Bootstrap's website <br>
